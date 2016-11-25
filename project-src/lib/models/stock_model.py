@@ -5,24 +5,28 @@ class StockOHLCV:
 	Class that models one day stock information (Open, High, Low, Close, Volume)
 	"""
 
-	def __init__(self, stockOpen, stockHigh, stockLow, stockClose, volume):
+	def __init__(self, date, stockOpen, stockHigh, stockLow, stockClose, volume):
+		self.date = date
 		self.stockOpen = stockOpen
 		self.stockHigh = stockHigh
 		self.stockLow = stockLow
 		self.stockClose = stockClose
 		self.volume = volume
 
-	def getOpen(self):
+	def get_open(self):
 		return self.stockOpen
 
-	def getClose(self):
+	def get_close(self):
 		return self.stockClose
 
-	def getHigh(self):
+	def get_high(self):
 		return self.stockHigh
 
-	def getLow(self):
+	def get_low(self):
 		return self.stockLow
 
-	def getVolume(self):
+	def get_volume(self):
 		return self.volume
+
+	def get_date(self):
+		return self.date
