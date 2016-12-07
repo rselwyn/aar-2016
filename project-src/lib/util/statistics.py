@@ -6,8 +6,15 @@ class RatioCalculator:
 	__RISK_FREE_RATE__ = 0.0
 
 	@staticmethod
-	def get_sharp_ratio(returnRate, stdev):
-		return (returnRate - __RISK_FREE_RATE__) / stdev
+	def get_sharp_ratio(returns):
+		"""
+		Takes an array that represents the returns of any given strategy.
+		"""
+		return (MathematicalCalculator.get_mean(returnRate) - __RISK_FREE_RATE__) / MathematicalCalculator.get_std_dev(returns)
+
+	@staticmethod
+	def get_sortino_ratio(returns, stdev):
+
 
 class MathematicalCalculator:
 
