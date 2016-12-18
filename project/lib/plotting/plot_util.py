@@ -18,6 +18,7 @@ class StockNumberBasedPlot:
 	def set_axes(self, xtitle, ytitle):
 		plt.xlabel(xtitle)
 		plt.ylabel(ytitle)
+		return self
 
 	def plot_data(self, dataPoints):
 		dates = [i.get_date() for i in dataPoints]
@@ -25,6 +26,7 @@ class StockNumberBasedPlot:
 		plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
 		plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
 		plt.plot(dates, y_axis)
+		return self
 
 	def show(self):
 		plt.gcf().autofmt_xdate()

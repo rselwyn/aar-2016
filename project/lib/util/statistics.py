@@ -10,10 +10,13 @@ class RatioCalculator:
 		"""
 		Takes an array that represents the returns of any given strategy.
 		"""
-		return (MathematicalCalculator.get_mean(returnRate) - __RISK_FREE_RATE__) / MathematicalCalculator.get_std_dev(returns)
+		return (MathematicalCalculator.get_mean(returnRate) - __RISK_FREE_RATE__) / 
+										MathematicalCalculator.get_std_dev(returns)
 
 	@staticmethod
-	def get_sortino_ratio(returns, stdev):
+	def get_sortino_ratio(returns):
+		return (MathematicalCalculator.get_mean(returnRate) - __RISK_FREE_RATE__) / 
+					MathematicalCalculator.get_std_dev([i for i in returns if i<0])
 
 
 class MathematicalCalculator:
