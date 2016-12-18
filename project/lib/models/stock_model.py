@@ -36,5 +36,5 @@ class StockOHLCV:
 		Function that is called when the str() method is called
 		"""
 		return "Date: {0}.  Opening Price: {1}.  Highest Price: {2}. Lowest Price: {3}.  Closing Price {4}.  Volume {5}".format(
-			    self.date, self.stockOpen, self.stockHigh, self.stockHigh, self.stockLow, self.stockClose, 
+			    self.date, self.stockOpen, self.stockHigh, self.stockLow, self.stockClose, 
 				self.volume)
