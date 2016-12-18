@@ -10,7 +10,7 @@ class StockNumberBasedPlot(object):
 		plt.xlabel(xtitle)
 		plt.ylabel(ytitle)
 
-	def plot_data(self):
+	def plot_data(self, dataPoints):
 		pass
 
 	def show(self):
