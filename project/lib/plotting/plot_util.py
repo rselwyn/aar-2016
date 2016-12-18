@@ -21,9 +21,9 @@ class StockNumberBasedPlot:
 
 	def plot_data(self, dataPoints):
 		dates = [i.get_date() for i in dataPoints]
-		y_axis = [i.get_open() for i in dataPoints]
+		y_axis = [i.get_graphable_price() for i in dataPoints]
 		plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
-		plt.gca().xaxis.set_major_locator(mdates.DayLocator())
+		plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
 		plt.plot(dates, y_axis)
 
 	def show(self):

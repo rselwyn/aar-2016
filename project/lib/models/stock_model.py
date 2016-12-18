@@ -1,6 +1,6 @@
+from stock import StockModel
 
-
-class StockOHLCV:
+class StockOHLCV(StockModel):
 	"""
 	Class that models one day stock information (Open, High, Low, Close, Volume)
 	"""
@@ -31,6 +31,9 @@ class StockOHLCV:
 	def get_date(self):
 		return self.date
 
+	def get_graphable_price(self):
+		return self.get_open()
+
 	def __str__(self):
 		"""
 		Function that is called when the str() method is called
@@ -38,3 +41,18 @@ class StockOHLCV:
 		return "Date: {0}.  Opening Price: {1}.  Highest Price: {2}. Lowest Price: {3}.  Closing Price {4}.  Volume {5}".format(
 			    self.date, self.stockOpen, self.stockHigh, self.stockLow, self.stockClose, 
 				self.volume)
+
+class BasicStock(StockModel):
+
+    def __init__(self, datetime_object, price):
+        self.date = datetime_object
+        self.price = price
+
+    def get_date(self):
+        return self.date
+
+    def get_price(self):
+        return self.price
+
+    def get_graphable_price(self):
+    	return self.price

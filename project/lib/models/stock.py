@@ -1,11 +1,13 @@
-class Stock:
-    #basic info
-    def __init__(self, datetime_object, price):
-        self.date = datetime_object
-        self.price = price
+from abc import ABCMeta, abstractmethod
 
-    def get_date(self):
-        return self.date
+class StockModel(object):
 
-    def get_price(self):
-        return self.price
+	__metaclass__ = ABCMeta
+
+	@abstractmethod
+	def get_graphable_price(self):
+		raise NotImplementedError
+
+	@abstractmethod
+	def get_date(self, new_piece_of_data):
+		raise NotImplementedError
