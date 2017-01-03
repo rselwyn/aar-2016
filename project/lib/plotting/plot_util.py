@@ -14,7 +14,7 @@ class StockNumberBasedPlot:
 	def __init__(self,name):
 		plt.title(name)
 		plt.grid(True)
-	
+
 	def set_axes(self, xtitle, ytitle):
 		plt.xlabel(xtitle)
 		plt.ylabel(ytitle)
@@ -26,6 +26,10 @@ class StockNumberBasedPlot:
 		plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
 		plt.gca().xaxis.set_major_locator(mdates.MonthLocator())
 		plt.plot(dates, y_axis)
+		return self
+
+	def plot_numbers_on_day(self, days, numbers):
+		plt.plot(days, numbers)
 		return self
 
 	def show(self):
