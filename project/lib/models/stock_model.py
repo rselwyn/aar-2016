@@ -18,6 +18,7 @@ class StockOHLCV(StockModel):
 		self.nth_moving_average[day] = value
 
 	def get_nth_day_moving_average(self, day):
+		print self.nth_moving_average
 		return self.nth_moving_average[day]
 
 	def get_open(self):
