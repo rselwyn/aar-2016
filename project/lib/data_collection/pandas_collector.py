@@ -26,7 +26,6 @@ class PandasBasedDataReader:
 
 		# Get the moving averages
 		for i in calculate_moving_averages:
-			print outputList
 			averages = MovingAverageCalculator.get_moving_average_over_days(outputList,i)
 
 			for number in range(len(outputList)):

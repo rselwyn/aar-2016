@@ -10,7 +10,7 @@ the stop loss doesn't move.
 
 Third: Non-linear trailing stop loss.  When a stock goes up,
 the stop loss trails hyperbolically.  As the gains of a trade under
-this stop loss go towards infiniti, the stop loss gets closer and closer 
+this stop loss go towards infiniti, the stop loss gets closer and closer
 until it essentially becomes the price.
 """
 
@@ -20,7 +20,7 @@ class HardStopLoss(StopLoss):
 
 	def __init__(self, price, scale_down=1.0):
 		"""
-		This can be used in two ways.  First, directly specify the price 
+		This can be used in two ways.  First, directly specify the price
 		of the stop loss.  Second, specify the current stock price and by what percentage
 		the stop should be at relative to the current price.
 
@@ -40,7 +40,7 @@ class HardStopLoss(StopLoss):
 		return self.updatedPrice < self.startPrice
 
 	def update(self, new_data):
-		this.updatedPrice = new_data
+		self.updatedPrice = new_data
 
 class LinearlyTrailingStopLoss(StopLoss):
 
