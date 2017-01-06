@@ -38,6 +38,9 @@ class HardStopLoss(StopLoss):
 	def update(self, new_data):
 		self.updatedPrice = new_data
 
+	def get_current_stop(self):
+		return self.startPrice
+
 class LinearlyTrailingStopLoss(StopLoss):
 
 	def __init__(self, max_distance):
@@ -57,3 +60,6 @@ class LinearlyTrailingStopLoss(StopLoss):
 
 	def should_exit(self):
 		return self.currentPrice < self.actual_stop
+
+	def get_current_stop(self):
+		return self.startPrice

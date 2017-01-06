@@ -27,3 +27,10 @@ class StopLoss(object):
 		to provide new pricing data.
 		"""
 		raise NotImplementedError
+
+	@abstractmethod
+	def get_current_stop(self):
+		"""
+		Called by the simulator to get the current stop-loss price.
+		"""
+		raise NotImplementedError

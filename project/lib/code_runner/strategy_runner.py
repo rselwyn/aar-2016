@@ -1,5 +1,4 @@
 
-
 class StrategyRunner(object):
 
 	def __init__(self, strategy, stop_loss, data):
@@ -18,6 +17,8 @@ class StrategyRunner(object):
 
 		price_at_purchase = None
 
+		last_stop_loss_price = None
+
 		# We don't want the first day.
 		for each_day in range(1, len(self.data)):
 			yesterday_stock_price = self.data[each_day-1]
@@ -30,9 +31,15 @@ class StrategyRunner(object):
 					price_at_purchase = today_stock_price.get_open()
 					self.stop_loss.set_stop_loss_base_price(today_stock_price.get_open())
 					print "[SIM] BUY Triggered at {} on day {}.".format(price_at_purchase, today_stock_price.get_date())
+					print "[SIM] STOP Set at {}.".format(self.stop_loss.get_current_stop())
+					last_stop_loss_price = self.stop_loss.get_current_stop()
 			else:
 				# If there is an open trade
 				self.stop_loss.update(today_stock_price.get_open())
+
+				if last_stop_loss_price != self.stop_loss.get_current_stop():
+					last_stop_loss_price = self.stop_loss.get_current_stop()
+					print "[SIM] STOP Updated to {}.".format(last_stop_loss_price)
 
 				if self.stop_loss.should_exit():
 					has_open_trade = False
