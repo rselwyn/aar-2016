@@ -28,6 +28,7 @@ class StrategyRunner(object):
 				if self.strategy.should_buy(yesterday_stock_price, today_stock_price):
 					has_open_trade = True
 					price_at_purchase = today_stock_price.get_open()
+					self.stop_loss.set_stop_loss_base_price(today_stock_price.get_open())
 					print "[SIM] BUY Triggered at {} on day {}.".format(price_at_purchase, today_stock_price.get_date())
 			else:
 				# If there is an open trade

@@ -5,16 +5,24 @@ class StopLoss(object):
 	__metaclass__ = ABCMeta
 
 	@abstractmethod
+	def set_stop_loss_base_price(self, price):
+		"""
+		The simulator will call this method with the price at which
+		it is about to buy.
+		"""
+		raise NotImplemented
+
+	@abstractmethod
 	def should_exit(self):
 		"""
-		Should return a boolean of whether the 
+		Should return a boolean of whether the
 		trade should be exited.
 		"""
 		raise NotImplementedError
 
 	@abstractmethod
 	def update(self, new_piece_of_data):
-		"""	
+		"""
 		Provide new data to the stop loss object.  Use this
 		to provide new pricing data.
 		"""

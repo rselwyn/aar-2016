@@ -18,23 +18,19 @@ from stop_loss import StopLoss
 
 class HardStopLoss(StopLoss):
 
-	def __init__(self, price, scale_down=1.0):
+	def __init__(self, scale_down=1.0):
 		"""
-		This can be used in two ways.  First, directly specify the price
-		of the stop loss.  Second, specify the current stock price and by what percentage
-		the stop should be at relative to the current price.
-
-		For example, if you have a price of $100 and want your stop to be at $98 (98% of $100),
-		you could do
-
-			stop = HardStopLoss(98)
+			stop = HardStopLoss()
 
 		or
 
-			stop = HardStopLoss(100, scale_down=.98)
+			stop = HardStopLoss(scale_down=.98)
 		"""
-		self.startPrice = price * scale_down
+		self.scale_down =  scale_down
 		self.updatedPrice = None
+
+	def set_stop_loss_base_price(self, price):
+		self.startPrice = price * self.scale_down
 
 	def should_exit(self):
 		return self.updatedPrice < self.startPrice
@@ -44,12 +40,14 @@ class HardStopLoss(StopLoss):
 
 class LinearlyTrailingStopLoss(StopLoss):
 
-	def __init__(self, start_price, max_distance):
-		self.start = start_price
+	def __init__(self, max_distance):
 		self.dist = max_distance
 
 		self.actual_stop = self.start - self.dist
 		self.currentPrice = None
+
+	def set_stop_loss_base_price(price):
+		self.start = price
 
 	def update(self, updatedPrice):
 		if updatedPrice - self.dist > self.actual_stop:
