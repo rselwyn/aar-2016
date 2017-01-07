@@ -3,19 +3,19 @@ from lib.data_collection.pandas_collector import PandasBasedDataReader
 from lib.util.statistics import MovingAverageCalculator
 
 from lib.code_runner.strategy_runner import StrategyRunner
-from lib.stop_losses.implementation import HardStopLoss
+from lib.stop_losses.implementation import *
 from lib.strategies.twenty_fifty_cross import TwentyFiftyMovingAverageCross
 
 import datetime
 
-start = datetime.datetime(2012,10,8)
-end = datetime.datetime(2014,2,10)
+start = datetime.datetime(2011,10,8)
+end = datetime.datetime(2013,2,10)
 
 reader = PandasBasedDataReader(start,end, "AAPL")
 
 data = reader.get_data(calculate_moving_averages=[20,50])
 
-stop_loss = HardStopLoss(scale_down=.97)
+stop_loss = LinearlyTrailingStopLoss(10)
 strategy = TwentyFiftyMovingAverageCross()
 
 

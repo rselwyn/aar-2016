@@ -46,11 +46,10 @@ class LinearlyTrailingStopLoss(StopLoss):
 	def __init__(self, max_distance):
 		self.dist = max_distance
 
-		self.actual_stop = self.start - self.dist
 		self.currentPrice = None
 
-	def set_stop_loss_base_price(price):
-		self.start = price
+	def set_stop_loss_base_price(self, price):
+		self.actual_stop = price - self.dist
 
 	def update(self, updatedPrice):
 		if updatedPrice - self.dist > self.actual_stop:
@@ -62,4 +61,4 @@ class LinearlyTrailingStopLoss(StopLoss):
 		return self.currentPrice < self.actual_stop
 
 	def get_current_stop(self):
-		return self.startPrice
+		return self.actual_stop
