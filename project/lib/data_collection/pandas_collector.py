@@ -10,12 +10,18 @@ from ..util.statistics import MovingAverageCalculator
 class PandasBasedDataReader:
 
 	def __init__(self, first, second, symbol):
+		"""
+		Initialize with the first day, second day, and the ticker symbol.
+		"""
 		self.start = first
 		self.end = second
 		self.symbol = symbol
 
 	def get_data(self, calculate_moving_averages=[]):
-		# calculate_moving_averages contains days as numbers
+		"""
+		Has an optional parameter for the days on which the moving averages should be calculated for.  By default,
+		no moving averages should be calculated.
+		"""
 
 		# Returns PD Dataframe that looks like
 		# Index([u'Open', u'High', u'Low', u'Close', u'Volume', u'Adj Close'], dtype='object')

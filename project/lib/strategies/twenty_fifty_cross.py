@@ -1,6 +1,9 @@
 from trading_strategy import TradingStrategy
 
 class TwentyFiftyMovingAverageCross(TradingStrategy):
+    """
+    Implementation of a twenty day - fifty day moving average cross.
+    """
 
     def __init__(self):
         pass

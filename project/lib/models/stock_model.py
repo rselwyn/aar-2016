@@ -50,6 +50,9 @@ class StockOHLCV(StockModel):
 				self.volume)
 
 class BasicStock(StockModel):
+	"""
+	Represents a basic stock.
+	"""
 
     def __init__(self, datetime_object, price):
         self.date = datetime_object

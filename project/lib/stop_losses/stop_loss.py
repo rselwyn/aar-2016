@@ -31,6 +31,7 @@ class StopLoss(object):
 	@abstractmethod
 	def get_current_stop(self):
 		"""
-		Called by the simulator to get the current stop-loss price.
+		Called by the simulator to get the current stop-loss price.  This will help the simulator print to the console
+		when a trailing stop loss has a new price.
 		"""
 		raise NotImplementedError

@@ -1,6 +1,11 @@
 from abc import ABCMeta, abstractmethod
 
 class TradingStrategy(object):
+	"""
+	Abstract class that all trading strategies will extend for polymorphism (so that the strategy_runner can run
+	all types of trading strategies).
+	"""
+
 	__metaclass__ = ABCMeta
 
 	@abstractmethod

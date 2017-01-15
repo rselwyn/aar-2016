@@ -1,6 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
 class StockModel(object):
+	"""
+	Abstract class that is extended by all stock model data types.
+	"""
 
 	__metaclass__ = ABCMeta
 
