@@ -9,7 +9,7 @@ class RatioCalculator:
 	__RISK_FREE_RATE__ = 0.0
 
 	@staticmethod
-	def get_sharp_ratio(returns):
+	def get_sharpe_ratio(returns):
 		"""
 		Takes an array that represents the returns of any given strategy.
 		"""
