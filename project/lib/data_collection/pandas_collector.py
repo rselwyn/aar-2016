@@ -28,7 +28,7 @@ class PandasBasedDataReader:
 		allData = web.DataReader(self.symbol, 'yahoo', self.start, self.end)
 		outputList = []
 		for index,row in allData.iterrows():
-			outputList.append(StockOHLCV(index.to_datetime(),row["Open"],row["High"], row["Low"], row["Close"], row["Volume"]))
+			outputList.append(StockOHLCV(index.to_datetime(),row["Open"],row["High"], row["Low"], row["Close"], row["Volume"], self.symbol))
 
 		# Get the moving averages
 		for i in calculate_moving_averages:

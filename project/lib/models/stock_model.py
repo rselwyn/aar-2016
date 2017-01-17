@@ -5,13 +5,14 @@ class StockOHLCV(StockModel):
 	Class that models one day stock information (Open, High, Low, Close, Volume)
 	"""
 
-	def __init__(self, date, stockOpen, stockHigh, stockLow, stockClose, volume):
+	def __init__(self, date, stockOpen, stockHigh, stockLow, stockClose, volume, ticker):
 		self.date = date
 		self.stockOpen = stockOpen
 		self.stockHigh = stockHigh
 		self.stockLow = stockLow
 		self.stockClose = stockClose
 		self.volume = volume
+		self.ticker = ticker
 		self.nth_moving_average = {}
 
 	def set_nth_day_moving_average(self, day, value):
@@ -19,6 +20,9 @@ class StockOHLCV(StockModel):
 
 	def get_nth_day_moving_average(self, day):
 		return self.nth_moving_average[day]
+
+	def get_ticker(self):
+		return self.ticker
 
 	def get_open(self):
 		return self.stockOpen
@@ -54,15 +58,15 @@ class BasicStock(StockModel):
 	Represents a basic stock.
 	"""
 
-    def __init__(self, datetime_object, price):
-        self.date = datetime_object
-        self.price = price
+	def __init__(self, datetime_object, price):
+		self.date = datetime_object
+		self.price = price
 
-    def get_date(self):
-        return self.date
+	def get_date(self):
+		return self.date
 
-    def get_price(self):
-        return self.price
+	def get_price(self):
+		return self.price
 
-    def get_graphable_price(self):
-    	return self.price
+	def get_graphable_price(self):
+		return self.price

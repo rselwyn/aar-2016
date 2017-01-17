@@ -1,6 +1,8 @@
 
 class StrategyRunner(object):
 
+	__SLIPPAGE_FACTOR__ = .05 # 5 cent slippage factor
+
 	def __init__(self, strategy, stop_loss, data):
 		self.strategy = strategy
 		self.stop_loss = stop_loss
@@ -35,7 +37,7 @@ class StrategyRunner(object):
 					last_stop_loss_price = self.stop_loss.get_current_stop()
 			else:
 				# If there is an open trade
-				self.stop_loss.update(today_stock_price.get_open())
+				self.stop_loss.update(today_stock_price.get_low())
 
 				if last_stop_loss_price != self.stop_loss.get_current_stop():
 					last_stop_loss_price = self.stop_loss.get_current_stop()
@@ -43,7 +45,7 @@ class StrategyRunner(object):
 
 				if self.stop_loss.should_exit():
 					has_open_trade = False
-					profits.append(today_stock_price.get_open() - price_at_purchase)
+					profits.append(today_stock_price.get_open() - price_at_purchase - self.__SLIPPAGE_FACTOR__)
 					print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))
 					price_at_purchase = None
 

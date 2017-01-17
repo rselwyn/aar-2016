@@ -53,7 +53,7 @@ class MovingAverageCalculator:
 		for i in data_points:
 			referenceable_data_points.append(i)
 			if len(referenceable_data_points) > dayForMovingAverage:
-				referenceable_data_points = referenceable_data_points[1:] # remove the first element
+				referenceable_data_points.pop(0) # remove the first element
 			moving_averages_at_given_day.append(np.average(np.array([i.get_open() for i in referenceable_data_points])))
 
 		return moving_averages_at_given_day
