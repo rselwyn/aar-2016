@@ -43,7 +43,7 @@ class StrategyRunner(object):
 					last_stop_loss_price = self.stop_loss.get_current_stop()
 					print "[SIM] STOP Updated to {}.".format(last_stop_loss_price)
 
-				if self.stop_loss.should_exit():
+				if self.stop_loss.should_exit() or self.strategy.should_sell(yesterday_stock_price, today_stock_price):
 					has_open_trade = False
 					profits.append(today_stock_price.get_open() - price_at_purchase - self.__SLIPPAGE_FACTOR__)
 					print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))

@@ -11,3 +11,7 @@ class TradingStrategy(object):
 	@abstractmethod
 	def should_buy(self, initialDataPoint, secondaryDataPoint):
 		raise NotImplementedError
+
+	@abstractmethod
+	def should_sell(self, initialDataPoint, secondaryDataPoint):
+		raise NotImplementedError
