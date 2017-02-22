@@ -49,11 +49,12 @@ class LinearlyTrailingStopLoss(StopLoss):
 		self.currentPrice = None
 
 	def set_stop_loss_base_price(self, price):
-		self.actual_stop = price - self.dist
+		self.actual_stop = price - price*self.dist
+		self.realDist = price*self.dist
 
 	def update(self, updatedPrice):
-		if updatedPrice - self.dist > self.actual_stop:
-			self.actual_stop = updatedPrice - self.dist
+		if updatedPrice - self.realDist > self.actual_stop:
+			self.actual_stop = updatedPrice - self.realDist
 
 		self.currentPrice = updatedPrice
 

@@ -28,6 +28,7 @@ class PandasBasedDataReader:
 		allData = web.DataReader(self.symbol, 'yahoo', self.start, self.end)
 		outputList = []
 		for index,row in allData.iterrows():
+			# Adjustment ratio is adj close / close.  Each element (except volume) should be adjusted
 			outputList.append(StockOHLCV(index.to_datetime(),row["Open"],row["High"], row["Low"], row["Close"], row["Volume"], self.symbol))
 
 		# Get the moving averages

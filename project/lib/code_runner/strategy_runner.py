@@ -16,6 +16,7 @@ class StrategyRunner(object):
 
 		has_open_trade = False
 		profits = []
+		stop_count = 0
 
 		price_at_purchase = None
 
@@ -37,16 +38,38 @@ class StrategyRunner(object):
 					last_stop_loss_price = self.stop_loss.get_current_stop()
 			else:
 				# If there is an open trade
+
+				# If we lost value overnight
+				# or if we are told to sell by the strategy
+				if today_stock_price.get_open() < last_stop_loss_price or self.strategy.should_sell(yesterday_stock_price, today_stock_price):
+					# Only incrememnt if we were stopped out
+					if today_stock_price.get_open < last_stop_loss_price:
+						stop_count += 1
+						print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))
+					else:
+						print "[SIM] STOP [STRATEGY] Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))
+
+					has_open_trade = False
+					profits.append(today_stock_price.get_open() - price_at_purchase - self.__SLIPPAGE_FACTOR__)
+
+					price_at_purchase = None
+					continue
+
 				self.stop_loss.update(today_stock_price.get_low())
 
 				if last_stop_loss_price != self.stop_loss.get_current_stop():
 					last_stop_loss_price = self.stop_loss.get_current_stop()
 					print "[SIM] STOP Updated to {}.".format(last_stop_loss_price)
 
-				if self.stop_loss.should_exit() or self.strategy.should_sell(yesterday_stock_price, today_stock_price):
+				if self.stop_loss.should_exit():
+					stop_count += 1
 					has_open_trade = False
-					profits.append(today_stock_price.get_open() - price_at_purchase - self.__SLIPPAGE_FACTOR__)
-					print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))
+					profits.append(last_stop_loss_price - price_at_purchase - self.__SLIPPAGE_FACTOR__)
+
+					print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(last_stop_loss_price, today_stock_price.get_date(), profits[-1], sum(profits))
 					price_at_purchase = None
 
-		return profits
+
+
+
+		return profits, stop_count
