@@ -1,5 +1,5 @@
 from __future__ import division
-from lib.plotting.plot_util import StockNumberBasedPlot
+# from lib.plotting.plot_util import StockNumberBasedPlot
 from lib.data_collection.pandas_collector import PandasBasedDataReader
 from lib.util.statistics import MovingAverageCalculator
 
@@ -7,12 +7,14 @@ from lib.code_runner.strategy_runner import StrategyRunner
 from lib.stop_losses.implementation import *
 from lib.strategies.twenty_fifty_cross import TwentyFiftyMovingAverageCross
 
+from lib.code_runner.graphoptimizer import GraphOptimizer
+
 import datetime
 
 start = datetime.datetime(2010,1,1)
 end = datetime.datetime(2015,2,10)
 
-reader = PandasBasedDataReader(start,end, "AAL")
+reader = PandasBasedDataReader(start,end, "TSLA")
 
 data = reader.get_data(calculate_moving_averages=[20,50])
 strategy = TwentyFiftyMovingAverageCross()
@@ -32,18 +34,23 @@ for i in range(200,5000, 5):
 
 	csvOut.write(str(value) + ", " + str(total) + ", " + str(stops) +"\n")
 
-print (sorted(collected_data, key=lambda i: i[1], reverse=True)[0])
+# print (sorted(collected_data, key=lambda i: i[1], reverse=True)[0])
 
 csvOut.close()
 
-days = [i.get_date() for i in data]
+# print collected_data
+graph = GraphOptimizer(collected_data)
+print graph.getAbsoluteMax()
+print graph.getNinetyPercentDistance()
 
-graph = StockNumberBasedPlot("Graph of AAPL")
+# days = [i.get_date() for i in data]
 
-graph.set_axes("Time","Price")
-graph.plot_data(data)
+# graph = StockNumberBasedPlot("Graph of AAPL")
 
-graph.plot_numbers_on_day(days,[i.get_nth_day_moving_average(20) for i in data])
+# graph.set_axes("Time","Price")
+# graph.plot_data(data)
 
-graph.plot_numbers_on_day(days, [i.get_nth_day_moving_average(50) for i in data])
-graph.show()
+# graph.plot_numbers_on_day(days,[i.get_nth_day_moving_average(20) for i in data])
+
+# graph.plot_numbers_on_day(days, [i.get_nth_day_moving_average(50) for i in data])
+# graph.show()
