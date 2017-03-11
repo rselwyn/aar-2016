@@ -1,0 +1,6 @@
+AAPL
+GOOG
+FB
+JPM
+VZ
+JNJ

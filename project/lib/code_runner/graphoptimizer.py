@@ -25,3 +25,6 @@ class GraphOptimizer(object):
 
 	def getSmoothedMax(self):
 		pass
+
+	def getMaxPercent(self):
+		return self.data[self.get_max_position()][0]*100

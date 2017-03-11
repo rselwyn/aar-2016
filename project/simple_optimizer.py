@@ -40,8 +40,11 @@ csvOut.close()
 
 # print collected_data
 graph = GraphOptimizer(collected_data)
-print graph.getAbsoluteMax()
-print graph.getNinetyPercentDistance()
+
+print "STATISTICS: "
+print "NINETY PERCENT DISTANCE: " + str(graph.getNinetyPercentDistance())
+print "MAX: " + str(graph.getAbsoluteMax())
+print "STOP LOSS PERCENT: "  + str(graph.getMaxPercent())
 
 # days = [i.get_date() for i in data]
 
