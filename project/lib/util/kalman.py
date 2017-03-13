@@ -1,7 +1,7 @@
 #Code written by Scott Lobdell
 #http://scottlobdell.me/2014/08/kalman-filtering-python-reading-sensor-input/
 
-class KalmanFilter(object):
+class KFObject(object):
 
     def __init__(self, process_variance, estimated_measurement_variance):
         self.process_variance = process_variance
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # course...
     process_variance = 1e-3
     estimated_measurement_variance = measurement_standard_deviation ** 2  # 0.05 ** 2
-    kalman_filter = KalmanFilter(process_variance, estimated_measurement_variance)
+    kalman_filter = KFObject(process_variance, estimated_measurement_variance)
     posteri_estimate_graph = []
 
     for iteration in xrange(1, iteration_count):
