@@ -21,7 +21,7 @@ Abstract class, extended by all stock model data types.
 Class for plotting stock history, using matplotlib.
 
 ##stop_losses
-#####implementation.py
+####implementation.py
 Three types of stop losses: hard, linearly trailing, non-linearly trailing.
 Non-linearly trailing stops still need to be implemented.
 
@@ -37,3 +37,11 @@ Abstract class, extended by all trading strategy types.
 Ratio Calculator: Sharpe ratio, Sortino ratio.
 Mathematical Calculator: standard deviation, mean.
 Moving Average Calculator: get moving average over days, bind moving average to points.
+
+####kalman_object.py
+KFObject: Kalman filter object written by [Scott Lobdell]
+
+####kalman_filter.py
+Module with #filter method: accepts a list and filters it using KFObject
+
+[Scott Lobdell]: http://scottlobdell.me/2014/08/kalman-filtering-python-reading-sensor-input/
