@@ -1,4 +1,4 @@
-import kalman_object
+import kalman_object as kalman
 
 def filter(noisy_measurement, process_variance = 1e-3):
   #import random
@@ -15,14 +15,14 @@ def filter(noisy_measurement, process_variance = 1e-3):
   # The smaller this number, the fewer fluctuations, but can also venture off
   # course... (process_variance, moved to arguments with default 1e-3)
   estimated_measurement_variance = measurement_standard_deviation ** 2  # 0.05 ** 2
-  kalman_filter = KFObject(process_variance, estimated_measurement_variance)
+  kalman_filter = kalman.KFObject(process_variance, estimated_measurement_variance, noisy_measurement[0])
   posteri_estimate_graph = []
 
-  for iteration in xrange(1, iteration_count):
+  for iteration in range(1, iteration_count):
       kalman_filter.input_latest_noisy_measurement(noisy_measurement[iteration])
       posteri_estimate_graph.append(kalman_filter.get_latest_estimated_measurement())
-      
-  
+
+
   '''
   import pylab
   pylab.figure()
@@ -34,5 +34,5 @@ def filter(noisy_measurement, process_variance = 1e-3):
   pylab.ylabel('Output')
   pylab.show()
   '''
-  
+
   return posteri_estimate_graph

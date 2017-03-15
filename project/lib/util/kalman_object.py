@@ -1,12 +1,9 @@
-#Code written by Scott Lobdell
-#http://scottlobdell.me/2014/08/kalman-filtering-python-reading-sensor-input/
-
 class KFObject(object):
 
-    def __init__(self, process_variance, estimated_measurement_variance):
+    def __init__(self, process_variance, estimated_measurement_variance, initial):
         self.process_variance = process_variance
         self.estimated_measurement_variance = estimated_measurement_variance
-        self.posteri_estimate = 0.0
+        self.posteri_estimate = initial
         self.posteri_error_estimate = 1.0
 
     def input_latest_noisy_measurement(self, measurement):
