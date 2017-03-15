@@ -18,7 +18,8 @@ def filter(noisy_measurement, process_variance = 1e-3):
   # The smaller this number, the fewer fluctuations, but can also venture off
   # course... (process_variance, moved to arguments with default 1e-3)
   estimated_measurement_variance = measurement_standard_deviation ** 2  # 0.05 ** 2
-  kalman_filter = kalman.KFObject(process_variance, estimated_measurement_variance, noisy_measurement[0])
+  avg_1 = numpy.average(noisy_measurement[0:3])
+  kalman_filter = kalman.KFObject(process_variance, estimated_measurement_variance, avg_1)
   posteri_estimate_graph = []
 
   for iteration in range(1, iteration_count):
