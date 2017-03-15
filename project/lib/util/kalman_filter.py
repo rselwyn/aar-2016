@@ -1,3 +1,6 @@
+#Code written by Scott Lobdell
+#http://scottlobdell.me/2014/08/kalman-filtering-python-reading-sensor-input/
+
 import kalman_object as kalman
 
 def filter(noisy_measurement, process_variance = 1e-3):
