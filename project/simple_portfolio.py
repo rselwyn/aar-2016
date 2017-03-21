@@ -38,6 +38,10 @@ for company in companies:
 
 # After the above loops finish running, all the data has been loaded
 
+full_sharpe = []
+
+full_results = open("results_portfolio.csv", "w")
+
 # For each Different Stop Placement, Calculate the stats
 for i in stop_value:
 	returns = [float(return_holder.get_data(comp, i)) for comp in companies]
@@ -47,7 +51,12 @@ for i in stop_value:
 	return_holder.update_stats(str(i),"Total", total)
 	return_holder.update_stats(str(i), "Sortino", sortino)
 	return_holder.update_stats(str(i), "Sharpe", sharpe)
+	full_sharpe.append([i, sharpe, total])
+	full_results.write(str(i) + "," + str(total) + ", " + str(sharpe) + "\n")
 
+print "FULL RESULTS FOR PORTFOLIO: "
+print "MOST RETURNS WERE WITH STOP PERCENT " + str(sorted(full_sharpe, key=lambda i: i[2], reverse=True)[0])
+print "HIGHEST SHARPE WAS WITH STOP PERCENT " + str(sorted(full_sharpe, key=lambda i: i[1], reverse=True)[0])
 
-
-return_holder.print_stats()
+full_results.close()
+# return_holder.print_stats()

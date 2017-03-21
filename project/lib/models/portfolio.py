@@ -24,3 +24,5 @@ class Portfolio(object):
 	def update_stats(self, percent, stat, value):
 		self.stats[str(percent)][stat] = value
 
+	def get_stats(self, percent, stat):
+		return self.stats[str(percent)][stat]

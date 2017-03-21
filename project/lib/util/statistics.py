@@ -20,9 +20,10 @@ class RatioCalculator:
 		"""
 		Takes an array that represents the returns of any given strategy.
 		"""
-		if len([i for i in returns])
-		return (MathematicalCalculator.get_mean(returns) - RatioCalculator.__RISK_FREE_RATE__) / MathematicalCalculator.get_std_dev([i for i in returns if i<0])
-
+		if len([i for i in returns if i<0]) > 0:
+			return (MathematicalCalculator.get_mean(returns) - RatioCalculator.__RISK_FREE_RATE__) / MathematicalCalculator.get_std_dev([i for i in returns if i<0])
+		else:
+			return 0
 
 class MathematicalCalculator:
 
