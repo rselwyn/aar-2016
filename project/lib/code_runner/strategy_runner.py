@@ -1,3 +1,13 @@
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 class StrategyRunner(object):
 
 	__SHOULD_PRINT__ = False
@@ -34,8 +44,9 @@ class StrategyRunner(object):
 					price_at_purchase = today_stock_price.get_open()
 					self.stop_loss.set_stop_loss_base_price(today_stock_price.get_open())
 					if self.__SHOULD_PRINT__:
-						print "[SIM] BUY Triggered at {} on day {}.".format(price_at_purchase, today_stock_price.get_date())
-						print "[SIM] STOP Set at {}.".format(self.stop_loss.get_current_stop())
+						print self.stop_loss.get_start_dist()
+						print bcolors.OKGREEN + "[SIM] BUY Triggered at {} on day {}.".format(price_at_purchase, today_stock_price.get_date()) + bcolors.ENDC
+						print bcolors.OKBLUE + "[SIM] STOP Set at {}.".format(self.stop_loss.get_current_stop()) + bcolors.ENDC
 					last_stop_loss_price = self.stop_loss.get_current_stop()
 			else:
 				# If there is an open trade
@@ -53,10 +64,10 @@ class StrategyRunner(object):
 					if today_stock_price.get_open < last_stop_loss_price:
 						stop_count += 1
 						if self.__SHOULD_PRINT__:
-							print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))
+							print bcolors.FAIL + "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits)) + bcolors.ENDC
 					else:
 						if self.__SHOULD_PRINT__:
-							print "[SIM] STOP [STRATEGY] Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits))
+							print bcolors.FAIL + "[SIM] STOP [STRATEGY] Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(today_stock_price.get_open(), today_stock_price.get_date(), profits[-1], sum(profits)) + bcolors.ENDC
 
 
 					continue
@@ -67,6 +78,7 @@ class StrategyRunner(object):
 					last_stop_loss_price = self.stop_loss.get_current_stop()
 					if self.__SHOULD_PRINT__:
 						print "[SIM] STOP Updated to {}.".format(last_stop_loss_price)
+						# pass
 
 				if self.stop_loss.should_exit():
 					stop_count += 1
@@ -74,9 +86,17 @@ class StrategyRunner(object):
 					profits.append(last_stop_loss_price - price_at_purchase - self.__SLIPPAGE_FACTOR__)
 
 					if self.__SHOULD_PRINT__:
-						print "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(last_stop_loss_price, today_stock_price.get_date(), profits[-1], sum(profits))
+						print bcolors.FAIL + "[SIM] STOP Triggered at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(last_stop_loss_price, today_stock_price.get_date(), profits[-1], sum(profits)) + bcolors.ENDC
 					price_at_purchase = None
 
+		if has_open_trade:
+			stop_count += 1
+			has_open_trade = False
+			profits.append(last_stop_loss_price - price_at_purchase - self.__SLIPPAGE_FACTOR__)
+
+			if self.__SHOULD_PRINT__:
+				print bcolors.FAIL + "[SIM] STOP ENDED at {} on day {}.  Total Profits from Trade: {}.  Overall profits: {}".format(last_stop_loss_price, today_stock_price.get_date(), profits[-1], sum(profits)) + bcolors.ENDC
+			price_at_purchase = None			
 
 
 

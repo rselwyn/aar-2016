@@ -11,7 +11,7 @@ from lib.models.portfolio import Portfolio
 
 import datetime
 
-start = datetime.datetime(2008,10,8)
+start = datetime.datetime(2010,1,1)
 end = datetime.datetime(2013,2,10)
 
 f = open("portfolio.txt", "r")
@@ -19,6 +19,9 @@ companies = [i.strip("\n") for i in f.readlines()]
 f.close()
 
 return_holder = Portfolio("Optimized Portfolio")
+
+total_start_value = 0
+total_end_value = 0
 
 stop_value = [i/10000 for i in range(200,5000,5)]
 for company in companies:
@@ -28,6 +31,12 @@ for company in companies:
 	# Get the data and create the strategy
 	data = reader.get_data(calculate_moving_averages=[20,50])
 	strategy = TwentyFiftyMovingAverageCross()
+
+	total_start_value += data[0].get_open()
+	total_end_value += data[-1].get_open()
+
+	print company
+	print data[0].get_open(), data[-1].get_open()
 
 	for k in stop_value:
 		stop_loss = LinearlyTrailingStopLoss(k)
@@ -57,6 +66,7 @@ for i in stop_value:
 print "FULL RESULTS FOR PORTFOLIO: "
 print "MOST RETURNS WERE WITH STOP PERCENT " + str(sorted(full_sharpe, key=lambda i: i[2], reverse=True)[0])
 print "HIGHEST SHARPE WAS WITH STOP PERCENT " + str(sorted(full_sharpe, key=lambda i: i[1], reverse=True)[0])
+print "NO STRATEGY RESULT OF: " + str(total_end_value - total_start_value)
 
 full_results.close()
 # return_holder.print_stats()
